@@ -86,39 +86,39 @@
 	
 	
 	
-	const int times = 3000;
+	const int iterations = 100;
 	
-	NSTimeInterval time1 = GetMachTime();
-	for (int i = 0; i < times; i++) 
+	NSTimeInterval JSONKitTime = GetMachTime();
+	for (int i = 0; i < iterations; i++) 
 	{
 		NSDictionary * dict = [[JSONDecoder decoder] parseJSONData:data];
 		dict = nil;
 	}
-	time1 = GetMachTime() - time1;
+	JSONKitTime = GetMachTime() - JSONKitTime;
 	
 	
-	NSTimeInterval time2 = GetMachTime();
-	for (int i = 0; i < times; i++) 
+	NSTimeInterval OKTime = GetMachTime();
+	for (int i = 0; i < iterations; i++) 
 	{
 		NSDictionary * dict = OKJSONParserParse2([data bytes], [data length], 0);// [OKJSONParser parseData:data error:nil];
 		dict = nil;
 	}
-	time2 = GetMachTime() - time2;
+	OKTime = GetMachTime() - OKTime;
 	
-	NSTimeInterval time0 = GetMachTime();
-	for (int i = 0; i < times; i++) 
+	NSTimeInterval NSTime = GetMachTime();
+	for (int i = 0; i < iterations; i++) 
 	{
 		NSDictionary * dict = [NSJSONSerialization JSONObjectWithData:data 
 															  options:0
 																error:nil];
 		dict = nil;
 	}
-	time0 = GetMachTime() - time0;
+	NSTime = GetMachTime() - NSTime;
 	
-	const double fasterRate1 = time1 / time2;
-	const double fasterRate2 = time0 / time2;
+	const double JSONKit_OK_Rate = JSONKitTime / OKTime;
+	const double NS_OK_Rate = NSTime / OKTime;
 	
-	if (time1 < time2) 
+	if (JSONKitTime < OKTime) 
 	{
 		NSLog(@"OKJSONParser is slower ");
 	}
@@ -128,10 +128,15 @@
 	mode = @"Mode: Debug\n";
 #endif
 	
-	NSString * mess = [NSString stringWithFormat:@"TEST_APP %@ \nJSONDec:%f  \nOKJSONP:%f   \nNSJSONS:%f  \nFasterRate1:%f  \nFasterRate2:%f ", mode, time1, time2, time0, fasterRate1, fasterRate2];
+	UIDevice * currentDevice = [UIDevice currentDevice];
+	NSString * deviceInfo = [NSString stringWithFormat:@"SystemName: %@\nSystemVersion: %@\nModel: %@",
+							 [currentDevice systemName],
+							 [currentDevice systemVersion],
+							 [currentDevice model]];
 	
-	NSLog(@"\n\n\n\nTEST_APP\nJSONDec:%f  \nOKJSONP:%f   \nNSJSONS:%f  \nFasterRate1:%f  \nFasterRate2:%f \n\n\n", time1, time2, time0, fasterRate1, fasterRate2);
-	UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Speed test results" 
+	NSString * mess = [NSString stringWithFormat:@"SIMPLE APP %@\nDevice: %@\nIterations count: %i\nJSONKit: %f (sec)\nOK: %f (sec)\nNS: %f (sec)\nRate(JSONKit/OK): %f\nRate(NS/OK):%f ", mode, deviceInfo, iterations, JSONKitTime, OKTime, NSTime, JSONKit_OK_Rate, NS_OK_Rate];
+	
+	UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Speed test OKJSONParser" 
 													 message:mess
 													delegate:nil
 										   cancelButtonTitle:@"OK"
