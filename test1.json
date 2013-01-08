@@ -1,0 +1,62 @@
+{
+	"web-app": 
+	{
+		"servlet": 
+		[   
+		 {
+		 "servlet-name": "cofaxCDS",
+		 "init-param": 
+		 {
+		 "configGlossary:installationAt": "Philadelphia, PA",
+		 "dataStoreLogLevel": "debug"
+		 }
+		 },
+		 {
+		 "servlet-name": "cofaxEmail",
+		 "servlet-name1": 23,
+		 "servlet-name2": -23,
+		 "servlet-name6": null,
+		 "servlet-name7": true,
+		 "servlet-name8": false,
+		 "servlet-class": "org.cofax.cds.EmailServlet",
+		 "init-param": 
+		 {
+		 "mailHost": "mail1",
+		 "mailHostOverride": "mail2"
+		 }
+		 },
+		 {
+		 "servlet-name": "cofaxAdmin",
+		 "servlet-class": "org.cofax.cds.AdminServlet"
+		 },
+		 {
+		 "servlet-name": "fileServlet",
+		 "servlet-class": "org.cofax.cds.FileServlet"
+		 },
+		 {
+		 "servlet-name": "cofaxTools",
+		 "servlet-class": "org.cofax.cms.CofaxToolsServlet",
+		 "init-param": 
+		 {
+		 "templatePath": "toolstemplates/",
+		 "logLocation": "/usr/local/tomcat/logs/CofaxTools.log",
+		 "logMaxSize": "",
+		 "dataLogLocation": "/usr/local/tomcat/logs/dataLog.log",
+		 "dataLogMaxSize": ""
+		 }}],
+		"servlet-mapping": 
+		{
+			"cofaxCDS": "/",
+			"cofaxEmail": "/cofaxutil/aemail/*",
+			"cofaxAdmin": "/admin/*",
+			"fileServlet": "/static/*",
+			"cofaxTools": "/tools/*"
+		},
+		
+		"taglib": 
+		{
+			"taglib-uri": "cofax.tld",
+			"taglib-location": "/WEB-INF/tlds/cofax.tld"
+		}
+	}
+}
