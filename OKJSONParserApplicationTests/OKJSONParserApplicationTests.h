@@ -14,9 +14,8 @@
  * limitations under the License.
  */
 
-
 #import <SenTestingKit/SenTestingKit.h>
 
-@interface OKJSONParserTests : SenTestCase
+@interface OKJSONParserApplicationTests : SenTestCase
 
 @end

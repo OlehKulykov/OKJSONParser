@@ -15,7 +15,7 @@
  */
 
 
-#include "_OKJSONParser.h"
+#include "OKJSONParser.h"
 
 #include <CoreFoundation/CoreFoundation.h>
 
@@ -30,17 +30,18 @@
 /// For PC better 32bit char
 //#define CHAR_TYPE uint32_t
 
-
 /// For device better 16bit char(16bit registers)
 #define CHAR_TYPE uint16_t
 
-
 //#define CHAR_TYPE char
 
-#define CH(c) ((CHAR_TYPE)c)
 
 //#define OBJ_TYPE_TYPE uint32_t
 #define OBJ_TYPE_TYPE uint16_t
+
+
+#define CH(c) ((CHAR_TYPE)c)
+
 
 #define O_DICT				(1)
 #define O_ARRAY				(1<<1)
@@ -50,7 +51,17 @@
 #define O_IS_DICT_VALUE 	(1<<5)
 #define O_IS_ARRAY_ELEM 	(1<<6)
 
-struct _OKJSONParserStruct2
+
+#define ERR_INIT_DICT		(1)
+#define ERR_STORE_DICT		(2)
+#define ERR_INIT_ARRAY		(3)
+#define ERR_STORE_ARRAY		(4)
+#define ERR_INIT_STRING		(5)
+#define ERR_STORE_STRING	(6)
+#define ERR_INIT_NUMBER		(7)
+#define ERR_WRONG_LOGIC		(8)
+
+struct _OKJSONParserStruct
 {
 	uint8_t * data;
 	uint8_t * end;
@@ -62,9 +73,9 @@ struct _OKJSONParserStruct2
 	
 } __attribute__((packed));
 
-typedef struct _OKJSONParserStruct2 OKJSONParserStruct2;
+typedef struct _OKJSONParserStruct OKJSONParserStruct;
 
-void __OKJSONParserFreeParserDataStruct2(OKJSONParserStruct2 * p)
+void OKJSONParserFreeParserDataStruct(OKJSONParserStruct * p)
 {
 	if (p->objects) free(p->objects);
 	p->objects = 0;
@@ -73,28 +84,33 @@ void __OKJSONParserFreeParserDataStruct2(OKJSONParserStruct2 * p)
 	p->types = 0;
 }
 
-void __OKJSONParserCleanAll2(OKJSONParserStruct2 * p)
+void OKJSONParserCleanAll(OKJSONParserStruct * p)
 {
 	if (p->index >= 0)
 	{
 		id rootObject = p->objects[0];
 		if (rootObject) CFRelease(rootObject);
 	}
-	__OKJSONParserFreeParserDataStruct2(p);
+	if (p->error)
+	{
+		CFRelease(*p->error);
+		p->error = 0;
+	}
+	OKJSONParserFreeParserDataStruct(p);
 }
 
-CG_INLINE void * __OKJSONParserNewMem2(const size_t size)
+CG_INLINE void * OKJSONParserNewMem(const size_t size)
 {
 	void * m = 0;
 	return posix_memalign((void**)&m, 4, size) == 0 ? m : 0;
 }
 
-int __OKJSONParserIncCapacity2(OKJSONParserStruct2 * p)
+uint32_t OKJSONParserIncCapacity(OKJSONParserStruct * p)
 {
 	const size_t newCapacity = p->capacity + 16;
 	
-	id * o = (id *)__OKJSONParserNewMem2(newCapacity * sizeof(id));
-	OBJ_TYPE_TYPE * t = (OBJ_TYPE_TYPE *)__OKJSONParserNewMem2(newCapacity * sizeof(OBJ_TYPE_TYPE));
+	id * o = (id *)OKJSONParserNewMem(newCapacity * sizeof(id));
+	OBJ_TYPE_TYPE * t = (OBJ_TYPE_TYPE *)OKJSONParserNewMem(newCapacity * sizeof(OBJ_TYPE_TYPE));
 	
 	if (o && t)
 	{
@@ -103,7 +119,7 @@ int __OKJSONParserIncCapacity2(OKJSONParserStruct2 * p)
 			memcpy(o, p->objects, sizeof(id) * p->capacity);
 			memcpy(t, p->types, sizeof(OBJ_TYPE_TYPE) * p->capacity);
 		}
-		__OKJSONParserFreeParserDataStruct2(p);
+		OKJSONParserFreeParserDataStruct(p);
 		p->objects = o;
 		p->types = t;
 		p->capacity = newCapacity;
@@ -117,26 +133,66 @@ int __OKJSONParserIncCapacity2(OKJSONParserStruct2 * p)
 	return 0;
 }
 
-void __OKJSONParserError2(OKJSONParserStruct2 * p, const char * errorString)
+const char * OKJSONParserErrorCodeDescription(const int32_t errorCode)
 {
-//	if (p.error)
-//	{
-//		NSDictionary * userInfo = [NSDictionary dictionaryWithObject:[NSString stringWithUTF8String:errorString] 
-//															  forKey:@"message"];
-//		*p.error = [NSError errorWithDomain:@"OKJSONParser" code:-1 userInfo:userInfo];
-//	}
+	switch (errorCode) 
+	{
+		case ERR_INIT_DICT: return "Can't create dictionary object."; break;
+		case ERR_STORE_DICT: return "Can't store dictionary object."; break;
+		case ERR_INIT_ARRAY: return "Can't create array object."; break;
+		case ERR_STORE_ARRAY: return "Can't store array object."; break;
+		case ERR_INIT_STRING: return "Can't create string object."; break;
+		case ERR_STORE_STRING: return "Can't store string object."; break;
+		case ERR_INIT_NUMBER: return "Can't create number object."; break;
+		case ERR_WRONG_LOGIC: return "Internal logic error."; break;
+		default: break;
+	}
+	return 0;
 }
 
-void __OKJSONParserBeforeOutWithError2(OKJSONParserStruct2 * p, const char * errorString)
+void OKJSONParserError(OKJSONParserStruct * p, const int32_t errorCode)
 {
-	__OKJSONParserCleanAll2(p);
-	__OKJSONParserError2(p, errorString);
+	if (p->error) 
+	{
+		if (*p->error) 
+		{
+			CFRelease(*p->error); 
+			*p->error = 0;
+		}
+		const char * eString = OKJSONParserErrorCodeDescription(errorCode);
+		if (!eString) return;
+		
+		CFStringRef description = CFStringCreateWithBytes(kCFAllocatorMalloc, (const UInt8 *)eString, strlen(eString), kCFStringEncodingUTF8, true);
+		CFMutableDictionaryRef userInfo = CFDictionaryCreateMutable(kCFAllocatorMalloc, 2, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+		if (description && userInfo)
+		{
+			CFDictionarySetValue(userInfo, kCFErrorLocalizedDescriptionKey, description);
+			CFDictionarySetValue(userInfo, kCFErrorDescriptionKey, description);
+			CFRelease(description);
+		}
+		else
+		{
+			if (!description) CFRelease(description);
+			if (!userInfo) CFRelease(userInfo);
+			return;
+		}
+		
+		CFErrorRef error = CFErrorCreate(kCFAllocatorMalloc, CFSTR("OKJSONParser"), errorCode, userInfo);
+		if (error) p->error = &error;
+		CFRelease(userInfo);
+	}
+}
+
+void OKJSONParserBeforeOutWithError(OKJSONParserStruct * p, const int32_t errorCode)
+{
+	OKJSONParserCleanAll(p);
+	OKJSONParserError(p, errorCode);
 }
 
 #define IS_CHAR_START_OF_DIGIT(c) (c>=CH('0')&&c<=CH('9'))||c==CH('-')||c==CH('+')
 #define IS_GIGIT_CHAR(c) (c>=CH('0')&&c<=CH('9'))||c==CH('-')||c==CH('+')||c==CH('.')||c==CH('e')||c==CH('E')
 
-id __OKJSONParserTryNumber2(OKJSONParserStruct2 * p)
+id OKJSONParserTryNumber(OKJSONParserStruct * p)
 {
 	switch (*p->data) 
 	{
@@ -145,14 +201,14 @@ id __OKJSONParserTryNumber2(OKJSONParserStruct2 * p)
 			{
 				p->data += 4;
 				const char v = 1; // BOOL <- is char type on non ARC mode
-				return (id)CFNumberCreate(kCFAllocatorDefault, kCFNumberCharType, &v);
+				return (id)CFNumberCreate(kCFAllocatorMalloc, kCFNumberCharType, &v);
 			} break;
 		case CH('f'): /// false
 			if (strncmp((const char *)p->data, "false", 5) == 0)
 			{
 				p->data += 5;
 				const char v = 0; // BOOL <- is char type on non ARC mode
-				return (id)CFNumberCreate(kCFAllocatorDefault, kCFNumberCharType, &v);
+				return (id)CFNumberCreate(kCFAllocatorMalloc, kCFNumberCharType, &v);
 			} break;
 		case CH('n'): /// null
 			if (strncmp((const char *)p->data, "null", 4) == 0)
@@ -187,20 +243,20 @@ id __OKJSONParserTryNumber2(OKJSONParserStruct2 * p)
 		char * endConvertion = 0;
 		const double v = strtod(start, &endConvertion);
 		if (endConvertion) p->data = (uint8_t *)--endConvertion;
-		return (id)CFNumberCreate(kCFAllocatorDefault, kCFNumberDoubleType, &v);
+		return (id)CFNumberCreate(kCFAllocatorMalloc, kCFNumberDoubleType, &v);
 	}
 	else
 	{
 		char * endConvertion = 0;
 		const long long v = strtoll(start, &endConvertion, 10);
 		if (endConvertion) p->data = (uint8_t *)--endConvertion;
-		return (id)CFNumberCreate(kCFAllocatorDefault, kCFNumberLongLongType, &v);
+		return (id)CFNumberCreate(kCFAllocatorMalloc, kCFNumberLongLongType, &v);
 	}
 	return 0;
 }
 
 
-void __OKJSONParserParseReplacementString1(const uint8_t * data, uint32_t len, id * resString)
+void OKJSONParserParseReplacementString(const uint8_t * data, uint32_t len, id * resString)
 {
 	UInt8 * newBuffer = (UInt8 *)malloc(len + 1);
 	if (newBuffer) 
@@ -228,7 +284,7 @@ void __OKJSONParserParseReplacementString1(const uint8_t * data, uint32_t len, i
 			prev = curr;
 			curr = *++data;
 		}
-		CFStringRef newString = CFStringCreateWithBytesNoCopy(kCFAllocatorDefault,
+		CFStringRef newString = CFStringCreateWithBytesNoCopy(kCFAllocatorMalloc,
 															  (const UInt8 *)startNewBuff, 
 															  ((const uint8_t *)newBuffer - (const uint8_t *)startNewBuff), 
 															  kCFStringEncodingUTF8, 
@@ -239,7 +295,7 @@ void __OKJSONParserParseReplacementString1(const uint8_t * data, uint32_t len, i
 	}
 }
 
-void __OKJSONParserParseString2(OKJSONParserStruct2 * p, id * resString)
+void OKJSONParserParseString(OKJSONParserStruct * p, id * resString)
 {
 	int isHasReplacement = 0;
 	const uint8_t * start = p->data;
@@ -271,8 +327,8 @@ void __OKJSONParserParseString2(OKJSONParserStruct2 * p, id * resString)
 	
 	p->data = (uint8_t *)data;
 	
-	if (isHasReplacement) __OKJSONParserParseReplacementString1(start, (data - start), resString);
-	else *resString = (id)CFStringCreateWithBytes(kCFAllocatorDefault, 
+	if (isHasReplacement) OKJSONParserParseReplacementString(start, (data - start), resString);
+	else *resString = (id)CFStringCreateWithBytes(kCFAllocatorMalloc, 
 												  (const UInt8 *)start, 
 												  (data - start), 
 												  kCFStringEncodingUTF8, 
@@ -281,11 +337,11 @@ void __OKJSONParserParseString2(OKJSONParserStruct2 * p, id * resString)
 
 #define IS_CONTAINER(o) ((o&O_DICT)||(o&O_ARRAY)) 
 
-int __OKJSONParserAddObject2(OKJSONParserStruct2 * p, id obj, const OBJ_TYPE_TYPE type)
+uint32_t OKJSONParserAddObject(OKJSONParserStruct * p, id obj, const OBJ_TYPE_TYPE type)
 {	
 	const int addIndex = p->index + 1;
 	
-	if (addIndex >= p->capacity) if (!__OKJSONParserIncCapacity2(p)) return 0;
+	if (addIndex >= p->capacity) if (!OKJSONParserIncCapacity(p)) return 0;
 	
 	if (addIndex == 0)
 	{
@@ -336,7 +392,7 @@ int __OKJSONParserAddObject2(OKJSONParserStruct2 * p, id obj, const OBJ_TYPE_TYP
 	return 0;
 }
 
-void __OKJSONParserEndedContainer2(OKJSONParserStruct2 * p)
+void OKJSONParserEndContainer(OKJSONParserStruct * p)
 {
 	const int currIndex = p->index;
 	if (currIndex > 0)
@@ -347,9 +403,9 @@ void __OKJSONParserEndedContainer2(OKJSONParserStruct2 * p)
 	}
 }
 
-id OKJSONParserParse2(const uint8_t * inData, const uint32_t inDataLength, void ** error)
+id OKJSONParserParse(const uint8_t * inData, const uint32_t inDataLength, void ** error)
 {
-	OKJSONParserStruct2 p = { 0 };
+	OKJSONParserStruct p = { 0 };
 	p.index = -1;
 	p.error = (CFErrorRef *)error;
 	p.data = (uint8_t *)inData;
@@ -363,42 +419,42 @@ id OKJSONParserParse2(const uint8_t * inData, const uint32_t inDataLength, void 
 		{
 			case CH('{'):
 			{
-				id newDict = (id)CFDictionaryCreateMutable(kCFAllocatorDefault, 
-														   4,
+				id newDict = (id)CFDictionaryCreateMutable(kCFAllocatorMalloc, 
+														   2,
 														   &kCFTypeDictionaryKeyCallBacks,
 														   &kCFTypeDictionaryValueCallBacks);
 				if (newDict)
 				{
-					if (!__OKJSONParserAddObject2(&p, newDict, O_DICT)) 
+					if (!OKJSONParserAddObject(&p, newDict, O_DICT)) 
 					{
-						__OKJSONParserBeforeOutWithError2(&p, "Can't store JSON Dictionary object"); 
+						OKJSONParserBeforeOutWithError(&p, ERR_STORE_DICT); 
 						return 0;
 					}
 				}
 				else 
-				{ 
-					__OKJSONParserBeforeOutWithError2(&p, "Can't initialize JSON Dictionary object"); 
-					return 0; 
+				{
+					OKJSONParserBeforeOutWithError(&p, ERR_INIT_DICT); 
+					return 0;
 				}
 			} break;
 				
-			case CH('}'): //__OKJSONParserEndedContainer2(p); break;
-			case CH(']'): __OKJSONParserEndedContainer2(&p); break;
+			case CH('}'):
+			case CH(']'): OKJSONParserEndContainer(&p); break;
 				
 			case CH('['):
 			{
-				id newArray = (id)CFArrayCreateMutable(kCFAllocatorDefault, 4, &kCFTypeArrayCallBacks);
+				id newArray = (id)CFArrayCreateMutable(kCFAllocatorMalloc, 2, &kCFTypeArrayCallBacks);
 				if (newArray) 
 				{
-					if (!__OKJSONParserAddObject2(&p, newArray , O_ARRAY))
+					if (!OKJSONParserAddObject(&p, newArray , O_ARRAY)) 
 					{
-						__OKJSONParserBeforeOutWithError2(&p, "Can't store JSON Array object"); 
+						OKJSONParserBeforeOutWithError(&p, ERR_STORE_ARRAY);
 						return 0;
 					}
 				}
 				else 
 				{
-					__OKJSONParserBeforeOutWithError2(&p, "Can't initialize JSON Array object"); 
+					OKJSONParserBeforeOutWithError(&p, ERR_INIT_ARRAY);
 					return 0; 
 				}
 			} break;
@@ -407,40 +463,32 @@ id OKJSONParserParse2(const uint8_t * inData, const uint32_t inDataLength, void 
 			{
 				p.data++;
 				id newString = 0;
-				__OKJSONParserParseString2(&p, &newString);
+				OKJSONParserParseString(&p, &newString);
 				if (newString) 
 				{
-					if (!__OKJSONParserAddObject2(&p, newString, O_STRING))
+					if (!OKJSONParserAddObject(&p, newString, O_STRING)) 
 					{
-						__OKJSONParserBeforeOutWithError2(&p, "Can't store JSON String object");
-						return 0;
+						OKJSONParserBeforeOutWithError(&p, ERR_STORE_STRING);
+						return 0; 
 					}
 				}
 				else 
 				{
-					__OKJSONParserBeforeOutWithError2(&p, "Can't initialize JSON String object"); 
+					OKJSONParserBeforeOutWithError(&p, ERR_INIT_STRING); 
 					return 0;
 				}
 			} break;
-				
-				//			case 0:	
-				//			{
-				//				id r = IS_CONTAINER(p.types[0]) ? p.objects[0] : nil;
-				//				__OKJSONParserFreeParserDataStruct(p);
-				//				return r;
-				//			}
-				//				break;
 				
 			default:
 			{
 				if (IS_CHAR_START_OF_DIGIT(c) || c == CH('t') || c == CH('f') || c == CH('n'))
 				{
-					id newNumber = __OKJSONParserTryNumber2(&p);
+					id newNumber = OKJSONParserTryNumber(&p);
 					if (newNumber) 
 					{
-						if (!__OKJSONParserAddObject2(&p, newNumber, O_NUMBER))
+						if (!OKJSONParserAddObject(&p, newNumber, O_NUMBER)) 
 						{
-							__OKJSONParserBeforeOutWithError2(&p, "Can't initialize JSON Number object");
+							OKJSONParserBeforeOutWithError(&p, ERR_INIT_NUMBER);
 							return 0;
 						}
 					}
@@ -452,11 +500,11 @@ id OKJSONParserParse2(const uint8_t * inData, const uint32_t inDataLength, void 
 	if ( p.index == 0 && IS_CONTAINER(p.types[0]) )
 	{
 		id r = p.objects[0];
-		__OKJSONParserFreeParserDataStruct2(&p);
+		OKJSONParserFreeParserDataStruct(&p);
 		return r;
 	}
 	
-	__OKJSONParserBeforeOutWithError2(&p, "Parser logic incorrect");
+	OKJSONParserBeforeOutWithError(&p, ERR_WRONG_LOGIC);
 	
 	return 0;
 }

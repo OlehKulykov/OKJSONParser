@@ -15,15 +15,19 @@
 		 "servlet-name": "cofaxEmail",
 		 "servlet-name1": 23,
 		 "servlet-name2": -23,
-		 "servlet-name6": null,
-		 "servlet-name7": true,
-		 "servlet-name8": false,
+		 "servlet-name3": 23351 ,
+		 "servlet-name4": -23623 ,
+		 "servlet-name5": 23643,
+		 "servlet-name6": -23777,
+		 "servlet-name7": 2333,
+		 "servlet-name8": -234444 ,
+		 "servlet-name9": null,
+		 "servlet-name10": true,
+		 "servlet-name11": false,
 		 "servlet-class": "org.cofax.cds.EmailServlet",
 		 "init-param": 
-		 {
-		 "mailHost": "mail1",
-		 "mailHostOverride": "mail2"
-		 }
+		 {"mailHost": "mail1",
+		 "mailHostOverride": "mail2" }
 		 },
 		 {
 		 "servlet-name": "cofaxAdmin",
@@ -31,8 +35,7 @@
 		 },
 		 {
 		 "servlet-name": "fileServlet",
-		 "servlet-class": "org.cofax.cds.FileServlet"
-		 },
+		 "servlet-class": "org.cofax.cds.FileServlet"} ,
 		 {
 		 "servlet-name": "cofaxTools",
 		 "servlet-class": "org.cofax.cms.CofaxToolsServlet",

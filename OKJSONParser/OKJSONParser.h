@@ -15,26 +15,12 @@
  */
 
 
-#import <Foundation/Foundation.h>
+#ifndef OKJSONParser__OKJSONParser_h
+#define OKJSONParser__OKJSONParser_h
 
-@interface OKJSONParser : NSObject
+#include <objc/objc.h>
+#include <stdint.h>
 
-+ (id) parseData:(NSData *)data error:(NSError **)error;
-
-@end
-
-/*
-#ifndef __OKJSONPARSER_H__
-#define __OKJSONPARSER_H__
-
-/// Return value is NOT autoreleased, you need to release manualy or 
-/// use ARC mode.
-/// 'inData' - NOT NULL !!!, but JSON text string.
-/// 'error' - is pointer to 'NSError *' variable.
 id OKJSONParserParse(const uint8_t * inData, const uint32_t inDataLength, void ** error);
 
-
 #endif
- 
-*/
- 

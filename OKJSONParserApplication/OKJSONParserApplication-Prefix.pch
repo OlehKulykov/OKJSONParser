@@ -1,5 +1,5 @@
 //
-// Prefix header for all source files of the 'OKJSONParser' target in the 'OKJSONParser' project
+// Prefix header for all source files of the 'OKJSONParserApplication' target in the 'OKJSONParserApplication' project
 //
 
 #import <Availability.h>

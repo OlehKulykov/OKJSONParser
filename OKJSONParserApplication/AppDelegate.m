@@ -14,13 +14,11 @@
  * limitations under the License.
  */
 
-
 #import "AppDelegate.h"
 #import "ViewController.h"
-#import "OKJSONParser.h"
 #import "JSONKit.h"
+#include "OKJSONParser.h"
 #import "MachTime.h"
-#include "_OKJSONParser.h"
 
 @implementation AppDelegate
 
@@ -45,7 +43,8 @@
 	NSLog(@"dataString: %@", dataString);
 	
 	d1 = [[JSONDecoder decoder] parseJSONData:testData];
-	d2 =  OKJSONParserParse2([testData bytes], [testData length], 0);// [OKJSONParser parseData:testData error:nil];
+	CFErrorRef * error = nil;
+	d2 =  OKJSONParserParse([testData bytes], [testData length], (void**)&error);
 	if ( ![testDict isEqualToDictionary:d1] )
 	{
 		NSLog(@"JSONDecoder incorrect parse result");
@@ -65,7 +64,7 @@
 	NSData * data = [NSData dataWithContentsOfFile:path];
 	
 	d1 = [[JSONDecoder decoder] parseJSONData:data];
-	d2 =  OKJSONParserParse2([data bytes], [data length], 0); // [OKJSONParser parseData:data error:nil];
+	d2 =  OKJSONParserParse([data bytes], [data length], 0); // [OKJSONParser parseData:data error:nil];
 	testDict = [NSJSONSerialization JSONObjectWithData:data 
 											   options:0
 												 error:nil];
@@ -86,7 +85,7 @@
 	
 	
 	
-	const int iterations = 100;
+	const int iterations = 1000;
 	
 	NSTimeInterval JSONKitTime = GetMachTime();
 	for (int i = 0; i < iterations; i++) 
@@ -100,7 +99,7 @@
 	NSTimeInterval OKTime = GetMachTime();
 	for (int i = 0; i < iterations; i++) 
 	{
-		NSDictionary * dict = OKJSONParserParse2([data bytes], [data length], 0);// [OKJSONParser parseData:data error:nil];
+		NSDictionary * dict = OKJSONParserParse([data bytes], [data length], 0);// [OKJSONParser parseData:data error:nil];
 		dict = nil;
 	}
 	OKTime = GetMachTime() - OKTime;
@@ -147,7 +146,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 	[self test];
-
+	
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
 	self.viewController = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil];

@@ -14,14 +14,12 @@
  * limitations under the License.
  */
 
-
-#import "OKJSONParserTests.h"
-#import "MachTime.h"
+#import "OKJSONParserApplicationTests.h"
 #import "JSONKit.h"
-#import "OKJSONParser.h"
-#include "_OKJSONParser.h"
+#include "OKJSONParser.h"
+#import "MachTime.h"
 
-@implementation OKJSONParserTests
+@implementation OKJSONParserApplicationTests
 
 - (void)setUp
 {
@@ -64,12 +62,12 @@
 														  error:nil];
 	NSString * dataString = [[NSString alloc] initWithUTF8String:[testData bytes]];
 	NSLog(@"dataString: %@", dataString);
-
+	
 	string1 = [testDict objectForKey:@"string1"];
 	
 	d1 = [[JSONDecoder decoder] parseJSONData:testData];
 	//d2 =  [OKJSONParser parseData:testData error:nil];
-	d2 = OKJSONParserParse2([testData bytes], [testData length], 0);
+	d2 = OKJSONParserParse([testData bytes], [testData length], 0);
 	
 	string1 = [d2  objectForKey:@"string1"];
 	if ( ![testDict isEqualToDictionary:d1] )
@@ -92,7 +90,7 @@
 	
 	d1 = [[JSONDecoder decoder] parseJSONData:data];
 	//d2 = [OKJSONParser parseData:data error:nil];
-	d2 = OKJSONParserParse2([data bytes], [data length], 0);
+	d2 = OKJSONParserParse([data bytes], [data length], 0);
 	testDict = [NSJSONSerialization JSONObjectWithData:data 
 											   options:0
 												 error:nil];
@@ -126,8 +124,7 @@
 	NSTimeInterval time2 = GetMachTime();
 	for (int i = 0; i < times; i++) 
 	{
-		//NSDictionary * dict = [OKJSONParser parseData:data error:nil];
-		NSDictionary * dict = OKJSONParserParse2([data bytes], [data length], 0);
+		NSDictionary * dict = OKJSONParserParse([data bytes], [data length], 0);
 		dict = nil;
 	}
 	time2 = GetMachTime() - time2;
