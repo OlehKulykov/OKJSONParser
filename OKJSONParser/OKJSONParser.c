@@ -94,7 +94,7 @@ void OKJSONParserCleanAll(OKJSONParserStruct * p)
 	if (p->error)
 	{
 		CFRelease(*p->error);
-		p->error = 0;
+		*p->error = 0;
 	}
 	OKJSONParserFreeParserDataStruct(p);
 }
