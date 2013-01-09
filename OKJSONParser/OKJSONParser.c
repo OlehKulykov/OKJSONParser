@@ -289,7 +289,7 @@ void OKJSONParserParseReplacementString(const uint8_t * data, uint32_t len, id *
 															  ((const uint8_t *)newBuffer - (const uint8_t *)startNewBuff), 
 															  kCFStringEncodingUTF8, 
 															  true, 
-															  kCFAllocatorDefault);
+															  kCFAllocatorMalloc);
 		if (newString) *resString = (id)newString;
 		else free(newBuffer);
 	}
@@ -353,7 +353,7 @@ uint32_t OKJSONParserAddObject(OKJSONParserStruct * p, id obj, const OBJ_TYPE_TY
 		const int currIndex = p->index;
 		if ( p->types[currIndex] & O_ARRAY )
 		{
-			CFArrayAppendValue((CFMutableArrayRef)p->objects[currIndex], (const void *)obj);
+			CFArrayAppendValue((CFMutableArrayRef)p->objects[currIndex], obj);
 			CFRelease(obj);
 			if ( IS_CONTAINER(type) )
 			{
@@ -375,7 +375,7 @@ uint32_t OKJSONParserAddObject(OKJSONParserStruct * p, id obj, const OBJ_TYPE_TY
 		if (prevIndex >= 0)
 			if ( p->types[prevIndex] & O_DICT )
 			{
-				CFDictionarySetValue((CFMutableDictionaryRef)p->objects[prevIndex], (const void *)p->objects[currIndex], (const void *)obj);
+				CFDictionarySetValue((CFMutableDictionaryRef)p->objects[prevIndex], p->objects[currIndex], obj);
 				CFRelease(obj);
 				CFRelease(p->objects[currIndex]);
 				if ( IS_CONTAINER(type) )

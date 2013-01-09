@@ -31,6 +31,8 @@
 		3D7DA312169D7D8E00801962 /* MachTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D7DA310169D7D8E00801962 /* MachTime.m */; };
 		3D7DA316169D7E4B00801962 /* test1.json in Resources */ = {isa = PBXBuildFile; fileRef = 3D7DA315169D7E4B00801962 /* test1.json */; };
 		3D7DA317169D7E4B00801962 /* test1.json in Resources */ = {isa = PBXBuildFile; fileRef = 3D7DA315169D7E4B00801962 /* test1.json */; };
+		3DB5917F169D99A8004A8AF0 /* OKJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DB5917E169D99A8004A8AF0 /* OKJSON.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		3DB59180169D99A8004A8AF0 /* OKJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DB5917E169D99A8004A8AF0 /* OKJSON.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +75,8 @@
 		3D7DA30F169D7D8E00801962 /* MachTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MachTime.h; path = OKJSONParserApplication/MachTime.h; sourceTree = "<group>"; };
 		3D7DA310169D7D8E00801962 /* MachTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MachTime.m; path = OKJSONParserApplication/MachTime.m; sourceTree = "<group>"; };
 		3D7DA315169D7E4B00801962 /* test1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = test1.json; sourceTree = SOURCE_ROOT; };
+		3DB5917D169D99A8004A8AF0 /* OKJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OKJSON.h; sourceTree = "<group>"; };
+		3DB5917E169D99A8004A8AF0 /* OKJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OKJSON.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,6 +197,8 @@
 			children = (
 				3D7DA306169D7D2800801962 /* OKJSONParser.h */,
 				3D7DA305169D7D2800801962 /* OKJSONParser.c */,
+				3DB5917D169D99A8004A8AF0 /* OKJSON.h */,
+				3DB5917E169D99A8004A8AF0 /* OKJSON.m */,
 			);
 			path = OKJSONParser;
 			sourceTree = "<group>";
@@ -332,6 +338,7 @@
 				3D7DA309169D7D2800801962 /* JSONKit.m in Sources */,
 				3D7DA30D169D7D2800801962 /* OKJSONParser.c in Sources */,
 				3D7DA311169D7D8E00801962 /* MachTime.m in Sources */,
+				3DB5917F169D99A8004A8AF0 /* OKJSON.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -343,6 +350,7 @@
 				3D7DA30A169D7D2800801962 /* JSONKit.m in Sources */,
 				3D7DA30E169D7D2800801962 /* OKJSONParser.c in Sources */,
 				3D7DA312169D7D8E00801962 /* MachTime.m in Sources */,
+				3DB59180169D99A8004A8AF0 /* OKJSON.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -510,6 +518,7 @@
 				3D7DA2FB169D7D0800801962 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3D7DA2FC169D7D0800801962 /* Build configuration list for PBXNativeTarget "OKJSONParserApplicationTests" */ = {
 			isa = XCConfigurationList;
@@ -518,6 +527,7 @@
 				3D7DA2FE169D7D0800801962 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

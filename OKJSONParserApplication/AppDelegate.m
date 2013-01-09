@@ -17,7 +17,7 @@
 #import "AppDelegate.h"
 #import "ViewController.h"
 #import "JSONKit.h"
-#include "OKJSONParser.h"
+#include "OKJSON.h"
 #import "MachTime.h"
 
 @implementation AppDelegate
@@ -43,8 +43,7 @@
 	NSLog(@"dataString: %@", dataString);
 	
 	d1 = [[JSONDecoder decoder] parseJSONData:testData];
-	CFErrorRef * error = nil;
-	d2 =  OKJSONParserParse([testData bytes], [testData length], (void**)&error);
+	d2 = [OKJSON parse:testData withError:nil];// OKJSONParserParse([testData bytes], [testData length], (void**)&error);
 	if ( ![testDict isEqualToDictionary:d1] )
 	{
 		NSLog(@"JSONDecoder incorrect parse result");
@@ -64,7 +63,7 @@
 	NSData * data = [NSData dataWithContentsOfFile:path];
 	
 	d1 = [[JSONDecoder decoder] parseJSONData:data];
-	d2 =  OKJSONParserParse([data bytes], [data length], 0); // [OKJSONParser parseData:data error:nil];
+	d2 = [OKJSON parse:data withError:nil];
 	testDict = [NSJSONSerialization JSONObjectWithData:data 
 											   options:0
 												 error:nil];
@@ -99,7 +98,7 @@
 	NSTimeInterval OKTime = GetMachTime();
 	for (int i = 0; i < iterations; i++) 
 	{
-		NSDictionary * dict = OKJSONParserParse([data bytes], [data length], 0);// [OKJSONParser parseData:data error:nil];
+		NSDictionary * dict = [OKJSON parse:data withError:nil]; // OKJSONParserParse([data bytes], [data length], 0);
 		dict = nil;
 	}
 	OKTime = GetMachTime() - OKTime;
