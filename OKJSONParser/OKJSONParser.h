@@ -21,6 +21,10 @@
 #include <objc/objc.h>
 #include <stdint.h>
 
+/// Returns NOT !!!! autoreleased JSON object. If use this function directly
+/// you need release object manualy or use OKJSON Objective-C wrapper.
+/// Input data and it's length should not be null or empty.
+/// Void double pointer as allways is pointer to NSError * variable.
 id OKJSONParserParse(const uint8_t * inData, const uint32_t inDataLength, void ** error);
 
 #endif
