@@ -255,35 +255,54 @@ id OKJSONParserTryNumber(OKJSONParserStruct * p)
 	return 0;
 }
 
-uint32_t OKJSONParserUniCharToUTF8(const uint32_t uniChar, uint8_t * buff)
+int OKJSONParserUniCharToUTF8(const uint32_t uniChar, uint8_t * cursor)
 {
-    if (uniChar < 0x80) 
+	int count = 0;
+    wchar_t u = uniChar;
+	if (u < (unsigned char)0x80) 
 	{
-        buff[0] = (char)uniChar;
-		return 1;
-    }
-    else if (uniChar < 0x800) 
+		*cursor++ = (unsigned char)u;
+		count++;
+	} 
+	else 
 	{
-        buff[0] = (uint8_t)(0xC0 | uniChar>>6);
-        buff[1] = (uint8_t)((0x80 | uniChar) & 0x3F);
-		return 2;
-    }
-    else if (uniChar < 0x10000) 
-	{
-        buff[0] = (uint8_t)(0xE0 | uniChar>>12);
-        buff[1] = (uint8_t)((0x80 | uniChar>>6) & 0x3F);
-        buff[2] = (uint8_t)((0x80 | uniChar) & 0x3F);
-		return 3;
-    }
-    else if (uniChar < 0x200000) 
-	{
-        buff[0] = (uint8_t)(0xF0 | uniChar>>18);
-        buff[1] = (uint8_t)((0x80 | uniChar>>12) & 0x3F);
-        buff[2] = (uint8_t)((0x80 | uniChar>>6) & 0x3F);
-        buff[3] = (uint8_t)((0x80 | uniChar) & 0x3F);
-		return 4;
-    }
-    return 0;
+		if (u < 0x0800) 
+		{
+			*cursor++ = (unsigned char)0xc0 | ((unsigned char) (u >> 6));
+			count++;
+		} 
+		else 
+		{
+			if (u > 0xffff) 
+			{
+				// if people are working in utf8, but strings are encoded in eg. latin1, the resulting
+				// name might be invalid utf8. This and the corresponding code in fromUtf8 takes care
+				// we can handle this without loosing information. This can happen with latin filenames
+				// and a utf8 locale under Unix.
+				if ( (u > 0x10fe00) && (u < 0x10ff00) )
+				{
+					*cursor++ = (u - 0x10fe00);
+					count++;
+				} 
+				else 
+				{
+					*cursor++ = (unsigned char)0xf0 | ((unsigned char) (u >> 18));
+					*cursor++ = (unsigned char)0x80 | (((unsigned char) (u >> 12)) & (unsigned char)0x3f);
+					count += 2;
+				}
+			} 
+			else 
+			{
+				*cursor++ = (unsigned char)0xe0 | ((unsigned char) (u >> 12));
+				count++;
+			}
+			*cursor++ = (unsigned char)0x80 | (((unsigned char) (u >> 6)) & (unsigned char)0x3f);
+			count++;
+		}
+		*cursor++ = (unsigned char)0x80 | ((unsigned char) (u & (unsigned char)0x3f));
+		count++;
+	}
+	return count;
 }
 
 void OKJSONParserParseReplacementString(const uint8_t * data, uint32_t len, id * resString)
@@ -298,7 +317,7 @@ void OKJSONParserParseReplacementString(const uint8_t * data, uint32_t len, id *
 		{
 			switch (curr) 
 			{
-				//TODO: ugly ...
+				//TODO: remove ugly code ...
 				case CH('\"'): if (prev == CH('\\')) { *--newBuffer = '\"'; newBuffer++; } else *newBuffer++ = *data; break;
 				case CH('\\'): if (prev == CH('\\')) { *--newBuffer = '\\'; newBuffer++; } else *newBuffer++ = *data; break;
 				case CH('/'): if (prev == CH('\\')) { *--newBuffer = '/'; newBuffer++; } else *newBuffer++ = *data; break;
@@ -307,27 +326,27 @@ void OKJSONParserParseReplacementString(const uint8_t * data, uint32_t len, id *
 				case CH('n'): if (prev == CH('\\')) { *--newBuffer = '\n'; newBuffer++; } else *newBuffer++ = *data; break;
 				case CH('r'): if (prev == CH('\\')) { *--newBuffer = '\r'; newBuffer++; } else *newBuffer++ = *data; break;
 				case CH('t'): if (prev == CH('\\')) { *--newBuffer = '\t'; newBuffer++; } else *newBuffer++ = *data; break;
-				case CH('u'): 
+				case CH('u'): if (prev == CH('\\')) 
 				{
-					/*
-					char * end = 0;
-					unsigned long int v = strtoul((const char *)++data, &end, 16);
-					if (end && v)
+					const char * scanData = (char *)data;
+					uint32_t uniChar = 0;
+					if (sscanf(++scanData, "%04x", &uniChar) == 1)
 					{
-						char buff[4] = { 0 };
-						char * ptr = &buff[0];
-						size_t size = OKJSONParserUniCharToUTF8(v, ptr);
-						while (size--) *newBuffer++ = *ptr++;
-						data = (uint8_t *)--end;
+						const int count = OKJSONParserUniCharToUTF8(uniChar, --newBuffer);
+						newBuffer += count;
+						len -= 4;
+						data += 4;
+						curr = 0;
 					}
-					*/
 				}
+				else *newBuffer++ = *data;
 					break;
 				default: *newBuffer++ = *data; break;
 			}
 			prev = curr;
 			curr = *++data;
 		}
+		
 		CFStringRef newString = CFStringCreateWithBytesNoCopy(kCFAllocatorMalloc,
 															  (const UInt8 *)startNewBuff, 
 															  ((const uint8_t *)newBuffer - (const uint8_t *)startNewBuff), 
