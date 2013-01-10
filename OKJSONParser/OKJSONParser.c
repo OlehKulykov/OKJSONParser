@@ -255,6 +255,36 @@ id OKJSONParserTryNumber(OKJSONParserStruct * p)
 	return 0;
 }
 
+uint32_t OKJSONParserUniCharToUTF8(const uint32_t uniChar, uint8_t * buff)
+{
+    if (uniChar < 0x80) 
+	{
+        buff[0] = (char)uniChar;
+		return 1;
+    }
+    else if (uniChar < 0x800) 
+	{
+        buff[0] = (uint8_t)(0xC0 | uniChar>>6);
+        buff[1] = (uint8_t)((0x80 | uniChar) & 0x3F);
+		return 2;
+    }
+    else if (uniChar < 0x10000) 
+	{
+        buff[0] = (uint8_t)(0xE0 | uniChar>>12);
+        buff[1] = (uint8_t)((0x80 | uniChar>>6) & 0x3F);
+        buff[2] = (uint8_t)((0x80 | uniChar) & 0x3F);
+		return 3;
+    }
+    else if (uniChar < 0x200000) 
+	{
+        buff[0] = (uint8_t)(0xF0 | uniChar>>18);
+        buff[1] = (uint8_t)((0x80 | uniChar>>12) & 0x3F);
+        buff[2] = (uint8_t)((0x80 | uniChar>>6) & 0x3F);
+        buff[3] = (uint8_t)((0x80 | uniChar) & 0x3F);
+		return 4;
+    }
+    return 0;
+}
 
 void OKJSONParserParseReplacementString(const uint8_t * data, uint32_t len, id * resString)
 {
@@ -278,6 +308,20 @@ void OKJSONParserParseReplacementString(const uint8_t * data, uint32_t len, id *
 				case CH('r'): if (prev == CH('\\')) { *--newBuffer = '\r'; newBuffer++; } else *newBuffer++ = *data; break;
 				case CH('t'): if (prev == CH('\\')) { *--newBuffer = '\t'; newBuffer++; } else *newBuffer++ = *data; break;
 				case CH('u'): 
+				{
+					/*
+					char * end = 0;
+					unsigned long int v = strtoul((const char *)++data, &end, 16);
+					if (end && v)
+					{
+						char buff[4] = { 0 };
+						char * ptr = &buff[0];
+						size_t size = OKJSONParserUniCharToUTF8(v, ptr);
+						while (size--) *newBuffer++ = *ptr++;
+						data = (uint8_t *)--end;
+					}
+					*/
+				}
 					break;
 				default: *newBuffer++ = *data; break;
 			}

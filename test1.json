@@ -13,6 +13,7 @@
 		 },
 		 {
 		 "servlet-name": "cofaxEmail",
+		 "unicodeString": "a\u002Aa",
 		 "servlet-name1": 23,
 		 "servlet-name2": -23,
 		 "servlet-name3": 23351 ,
