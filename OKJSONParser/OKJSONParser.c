@@ -255,20 +255,20 @@ id OKJSONParserTryNumber(OKJSONParserStruct * p)
 	return 0;
 }
 
-int OKJSONParserUniCharToUTF8(const uint32_t uniChar, uint8_t * cursor)
+uint32_t OKJSONParserUniCharToUTF8(const uint32_t uniChar, uint8_t * cursor)
 {
 	int count = 0;
     wchar_t u = uniChar;
-	if (u < (unsigned char)0x80) 
+	if (u < (uint8_t)0x80) 
 	{
-		*cursor++ = (unsigned char)u;
+		*cursor++ = (uint8_t)u;
 		count++;
 	} 
 	else 
 	{
 		if (u < 0x0800) 
 		{
-			*cursor++ = (unsigned char)0xc0 | ((unsigned char) (u >> 6));
+			*cursor++ = (uint8_t)0xc0 | ((uint8_t) (u >> 6));
 			count++;
 		} 
 		else 
@@ -286,20 +286,20 @@ int OKJSONParserUniCharToUTF8(const uint32_t uniChar, uint8_t * cursor)
 				} 
 				else 
 				{
-					*cursor++ = (unsigned char)0xf0 | ((unsigned char) (u >> 18));
-					*cursor++ = (unsigned char)0x80 | (((unsigned char) (u >> 12)) & (unsigned char)0x3f);
+					*cursor++ = (uint8_t)0xf0 | ((uint8_t) (u >> 18));
+					*cursor++ = (uint8_t)0x80 | (((uint8_t) (u >> 12)) & (uint8_t)0x3f);
 					count += 2;
 				}
 			} 
 			else 
 			{
-				*cursor++ = (unsigned char)0xe0 | ((unsigned char) (u >> 12));
+				*cursor++ = (uint8_t)0xe0 | ((uint8_t) (u >> 12));
 				count++;
 			}
-			*cursor++ = (unsigned char)0x80 | (((unsigned char) (u >> 6)) & (unsigned char)0x3f);
+			*cursor++ = (uint8_t)0x80 | (((uint8_t) (u >> 6)) & (uint8_t)0x3f);
 			count++;
 		}
-		*cursor++ = (unsigned char)0x80 | ((unsigned char) (u & (unsigned char)0x3f));
+		*cursor++ = (uint8_t)0x80 | ((uint8_t) (u & (uint8_t)0x3f));
 		count++;
 	}
 	return count;
@@ -332,7 +332,7 @@ void OKJSONParserParseReplacementString(const uint8_t * data, uint32_t len, id *
 					uint32_t uniChar = 0;
 					if (sscanf(++scanData, "%04x", &uniChar) == 1)
 					{
-						const int count = OKJSONParserUniCharToUTF8(uniChar, --newBuffer);
+						const uint32_t count = OKJSONParserUniCharToUTF8(uniChar, --newBuffer);
 						newBuffer += count;
 						len -= 4;
 						data += 4;
@@ -384,11 +384,9 @@ void OKJSONParserParseString(OKJSONParserStruct * p, id * resString)
 				default: break;
 			}
 		}
-		if (curr == CH('\"') && prev != CH('\\')) break;
+		if (curr == CH('\"') && prev != CH('\\')) { p->data = (uint8_t *)data; break; }
 		prev = curr;
 	} while (++data <= end);
-	
-	p->data = (uint8_t *)data;
 	
 	if (isHasReplacement) OKJSONParserParseReplacementString(start, (data - start), resString);
 	else *resString = (id)CFStringCreateWithBytes(kCFAllocatorMalloc, 
