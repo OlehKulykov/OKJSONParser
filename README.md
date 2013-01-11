@@ -22,4 +22,4 @@ Screenshots with test results from device:
 <br>
 
 So in result: for the current moment OKJSONParser is ~30% faster in Release mode than NSJSONSerialization.
-For improving this results any optimizations and suggestions are welcome.
+<b>For improving this results any optimizations and suggestions are welcome.</b>
