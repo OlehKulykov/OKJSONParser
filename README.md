@@ -21,4 +21,5 @@ Screenshots with test results from device:
 <img src="https://github.com/OlehKulykov/OKJSONParser/blob/master/TestResultCharts/iph4d1000.png?raw=true" width="200" height="305" alt=""/>
 <br>
 
-So in result: for the current moment OKJSONParser is faster.
+So in result: for the current moment OKJSONParser is ~30% faster in Release mode than NSJSONSerialization.
+For improving this results any optimizations and suggestions are welcome.
