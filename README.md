@@ -8,5 +8,17 @@ For testing was used iPhone 4 with iOS Version 6.0.1 (10A523) and the results is
 <img src="https://github.com/OlehKulykov/OKJSONParser/blob/master/TestResultCharts/iph4release.png?raw=true" width="410" height="285" alt="Release version" />
 <img src="https://github.com/OlehKulykov/OKJSONParser/blob/master/TestResultCharts/iph4debug.png?raw=true" width="410" height="285" alt="Debug version" />
 
+Screenshots with test results from device:
+<br><b>Release mode:</b><br>
+<img src="https://github.com/OlehKulykov/OKJSONParser/blob/master/TestResultCharts/iph4r100.png?raw=true" width="200" height="305" alt=""/>
+<img src="https://github.com/OlehKulykov/OKJSONParser/blob/master/TestResultCharts/iph4r200.png?raw=true" width="200" height="305" alt=""/>
+<img src="https://github.com/OlehKulykov/OKJSONParser/blob/master/TestResultCharts/iph4r500.png?raw=true" width="200" height="305" alt=""/>
+<img src="https://github.com/OlehKulykov/OKJSONParser/blob/master/TestResultCharts/iph4r1000.png?raw=true" width="200" height="305" alt=""/>
+<br><b>Debug mode:</b><br>
+<img src="https://github.com/OlehKulykov/OKJSONParser/blob/master/TestResultCharts/iph4d100.png?raw=true" width="200" height="305" alt=""/>
+<img src="https://github.com/OlehKulykov/OKJSONParser/blob/master/TestResultCharts/iph4d200.png?raw=true" width="200" height="305" alt=""/>
+<img src="https://github.com/OlehKulykov/OKJSONParser/blob/master/TestResultCharts/iph4d500.png?raw=true" width="200" height="305" alt=""/>
+<img src="https://github.com/OlehKulykov/OKJSONParser/blob/master/TestResultCharts/iph4d1000.png?raw=true" width="200" height="305" alt=""/>
+<br>
 
-
+So in result: for the current moment OKJSONParser is faster.
