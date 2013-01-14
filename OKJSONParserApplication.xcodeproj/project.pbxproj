@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D696CA816A45FD10052ED57 /* test2.json in Resources */ = {isa = PBXBuildFile; fileRef = 3D696CA716A45FD10052ED57 /* test2.json */; };
+		3D696CA916A45FD10052ED57 /* test2.json in Resources */ = {isa = PBXBuildFile; fileRef = 3D696CA716A45FD10052ED57 /* test2.json */; };
 		3D7DA2C5169D7D0800801962 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D7DA2C4169D7D0800801962 /* UIKit.framework */; };
 		3D7DA2C7169D7D0800801962 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D7DA2C6169D7D0800801962 /* Foundation.framework */; };
 		3D7DA2C9169D7D0800801962 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D7DA2C8169D7D0800801962 /* CoreGraphics.framework */; };
@@ -46,6 +48,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3D696CA716A45FD10052ED57 /* test2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = test2.json; sourceTree = SOURCE_ROOT; };
 		3D7DA2C0169D7D0800801962 /* OKJSONParserApplication.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OKJSONParserApplication.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D7DA2C4169D7D0800801962 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		3D7DA2C6169D7D0800801962 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -215,6 +218,7 @@
 		3D7DA314169D7E4000801962 /* Test JSON file */ = {
 			isa = PBXGroup;
 			children = (
+				3D696CA716A45FD10052ED57 /* test2.json */,
 				3D7DA315169D7E4B00801962 /* test1.json */,
 			);
 			name = "Test JSON file";
@@ -297,6 +301,7 @@
 				3D7DA2DB169D7D0800801962 /* Default-568h@2x.png in Resources */,
 				3D7DA2E1169D7D0800801962 /* ViewController.xib in Resources */,
 				3D7DA316169D7E4B00801962 /* test1.json in Resources */,
+				3D696CA816A45FD10052ED57 /* test2.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -306,6 +311,7 @@
 			files = (
 				3D7DA2F3169D7D0800801962 /* InfoPlist.strings in Resources */,
 				3D7DA317169D7E4B00801962 /* test1.json in Resources */,
+				3D696CA916A45FD10052ED57 /* test2.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

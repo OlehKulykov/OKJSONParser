@@ -91,10 +91,13 @@ void OKJSONParserCleanAll(OKJSONParserStruct * p)
 		id rootObject = p->objects[0];
 		if (rootObject) CFRelease(rootObject);
 	}
-	if (*p->error)
+	if (p->error)
 	{
-		CFRelease(*p->error);
-		*p->error = 0;
+		if (*p->error)
+		{
+			CFRelease(*p->error);
+			*p->error = 0;
+		}
 	}
 	OKJSONParserFreeParserDataStruct(p);
 }

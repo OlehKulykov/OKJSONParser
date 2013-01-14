@@ -29,38 +29,7 @@
 	NSDictionary * d2 = nil;
 	NSMutableDictionary * testDict = nil;
 	
-	testDict = [NSMutableDictionary dictionary];
-	NSArray * arr1 = [NSArray arrayWithObjects:@"arrElem1", @"arrElem2", nil];
-	[testDict setObject:arr1 forKey:@"arr1"];
-	[testDict setObject:@"value" forKey:@"key1"];
-	[testDict setObject:[NSNumber numberWithLongLong:-3] forKey:@"intKey"];
-	[testDict setObject:[NSNumber numberWithBool:YES] forKey:@"true1Key"];
-	[testDict setObject:[NSNumber numberWithBool:NO] forKey:@"falseKey"];
-	[testDict setObject:[NSNull null] forKey:@"nullKey"];
-	NSData * testData = [NSJSONSerialization dataWithJSONObject:testDict 
-														options:0
-														  error:nil];
-	NSString * dataString = [[NSString alloc] initWithUTF8String:[testData bytes]];
-	NSLog(@"dataString: %@", dataString);
-	
-	d1 = [[JSONDecoder decoder] parseJSONData:testData];
-	d2 = [OKJSON parse:testData withError:nil];// OKJSONParserParse([testData bytes], [testData length], (void**)&error);
-	if ( ![testDict isEqualToDictionary:d1] )
-	{
-		NSLog(@"JSONDecoder incorrect parse result");
-	}
-	
-	if ( ![testDict isEqualToDictionary:d2] )
-	{
-		NSLog(@"OKJSONParser incorrect parse result");
-	}
-	
-	if ( ![d1 isEqualToDictionary:d2] )
-	{
-		NSLog(@"Both results not equal");
-	}
-	
-	NSString * path = [[NSBundle bundleForClass:[self class]] pathForResource:@"test1" ofType:@"json"];
+	NSString * path = [[NSBundle bundleForClass:[self class]] pathForResource:@"test2" ofType:@"json"];
 	NSData * data = [NSData dataWithContentsOfFile:path];
 	
 	d1 = [[JSONDecoder decoder] parseJSONData:data];

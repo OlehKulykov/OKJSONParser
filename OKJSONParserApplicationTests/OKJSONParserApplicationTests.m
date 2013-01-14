@@ -22,54 +22,17 @@
 
 @implementation OKJSONParserApplicationTests
 
-- (void)setUp
-{
-    [super setUp];
-    
-    // Set-up code here.
-}
 
-- (void)tearDown
+- (void) testFile:(NSString *)filePath
 {
-    // Tear-down code here.
-    
-    [super tearDown];
-}
-
-- (void) testParse
-{
-	NSDictionary * d1 = nil;
-	NSDictionary * d2 = nil;
-	NSMutableDictionary * testDict = nil;
+	NSData * data = [NSData dataWithContentsOfFile:filePath];
 	
-	testDict = [NSMutableDictionary dictionary];
+	NSDictionary * testDict = [NSJSONSerialization JSONObjectWithData:data 
+															  options:0
+																error:nil];
+	NSDictionary * d1 = [[JSONDecoder decoder] parseJSONData:data];
+	NSDictionary * d2 = [OKJSON parse:data withError:nil];
 	
-	NSString * string1 = @"S\"tring";
-	
-	[testDict setObject:string1 forKey:@"string1"];
-	
-	
-	[testDict setObject:@"q\"q" forKey:@"key6"];
-	[testDict setObject:@"" forKey:@"emptyString"];
-	NSArray * arr1 = [NSArray arrayWithObjects:@"arrElem1", @"arrElem2", nil];
-	[testDict setObject:arr1 forKey:@"arr1"];
-	[testDict setObject:@"value" forKey:@"key1"];
-	[testDict setObject:[NSNumber numberWithLongLong:-3] forKey:@"intKey"];
-	[testDict setObject:[NSNumber numberWithBool:YES] forKey:@"true1Key"];
-	[testDict setObject:[NSNumber numberWithBool:NO] forKey:@"falseKey"];
-	[testDict setObject:[NSNull null] forKey:@"nullKey"];
-	NSData * testData = [NSJSONSerialization dataWithJSONObject:testDict 
-														options:0
-														  error:nil];
-	NSString * dataString = [[NSString alloc] initWithUTF8String:[testData bytes]];
-	NSLog(@"dataString: %@", dataString);
-	
-	string1 = [testDict objectForKey:@"string1"];
-	
-	d1 = [[JSONDecoder decoder] parseJSONData:testData];
-	d2 = [OKJSON parse:testData withError:nil]; // OKJSONParserParse([testData bytes], [testData length], 0);
-	
-	string1 = [d2  objectForKey:@"string1"];
 	if ( ![testDict isEqualToDictionary:d1] )
 	{
 		STFail(@"JSONDecoder incorrect parse result");
@@ -84,13 +47,16 @@
 	{
 		STFail(@"Both results not equal");
 	}
-	
-	NSString * path = [[NSBundle bundleForClass:[self class]] pathForResource:@"test1" ofType:@"json"];
+}
+
+- (void) testTime
+{
+	NSString * path = [[NSBundle bundleForClass:[self class]] pathForResource:@"test2" ofType:@"json"];
 	NSData * data = [NSData dataWithContentsOfFile:path];
 	
-	d1 = [[JSONDecoder decoder] parseJSONData:data];
-	d2 = [OKJSON parse:data withError:nil]; // OKJSONParserParse([data bytes], [data length], 0);
-	testDict = [NSJSONSerialization JSONObjectWithData:data 
+	NSDictionary * d1 = [[JSONDecoder decoder] parseJSONData:data];
+	NSDictionary *d2 = [OKJSON parse:data withError:nil];
+	NSDictionary *	testDict = [NSJSONSerialization JSONObjectWithData:data 
 											   options:0
 												 error:nil];
 	if ( ![testDict isEqualToDictionary:d1] )
@@ -123,7 +89,7 @@
 	NSTimeInterval time2 = GetMachTime();
 	for (int i = 0; i < times; i++) 
 	{
-		NSDictionary * dict = [OKJSON parse:data withError:nil];// OKJSONParserParse([data bytes], [data length], 0);
+		NSDictionary * dict = [OKJSON parse:data withError:nil];
 		dict = nil;
 	}
 	time2 = GetMachTime() - time2;
@@ -147,6 +113,12 @@
 		STFail(@"OKJSONParser is slower ");
 	}
 	NSLog(@"\n\n\n\nTEST_APP\nJSONDec:%f  \nOKJSONP:%f   \nNSJSONS:%f  \nFasterRate1:%f  \nFasterRate2:%f \n\n\n", time1, time2, time0, fasterRate1, fasterRate2);
+}
+
+- (void) testParse
+{
+	[self testFile:[[NSBundle bundleForClass:[self class]] pathForResource:@"test2" ofType:@"json"]];
+	[self testFile:[[NSBundle bundleForClass:[self class]] pathForResource:@"test1" ofType:@"json"]];
 }
 
 @end
