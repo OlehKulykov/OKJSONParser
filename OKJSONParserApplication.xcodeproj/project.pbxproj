@@ -7,8 +7,28 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3D696CA816A45FD10052ED57 /* test2.json in Resources */ = {isa = PBXBuildFile; fileRef = 3D696CA716A45FD10052ED57 /* test2.json */; };
-		3D696CA916A45FD10052ED57 /* test2.json in Resources */ = {isa = PBXBuildFile; fileRef = 3D696CA716A45FD10052ED57 /* test2.json */; };
+		3D4BB4B216A55EBF000C0D2E /* test1.json in Resources */ = {isa = PBXBuildFile; fileRef = 3D4BB4B016A55EBF000C0D2E /* test1.json */; };
+		3D4BB4B316A55EBF000C0D2E /* test1.json in Resources */ = {isa = PBXBuildFile; fileRef = 3D4BB4B016A55EBF000C0D2E /* test1.json */; };
+		3D4BB4B416A55EBF000C0D2E /* test2.json in Resources */ = {isa = PBXBuildFile; fileRef = 3D4BB4B116A55EBF000C0D2E /* test2.json */; };
+		3D4BB4B516A55EBF000C0D2E /* test2.json in Resources */ = {isa = PBXBuildFile; fileRef = 3D4BB4B116A55EBF000C0D2E /* test2.json */; };
+		3D4BB4B716A55F04000C0D2E /* test3.json in Resources */ = {isa = PBXBuildFile; fileRef = 3D4BB4B616A55F04000C0D2E /* test3.json */; };
+		3D4BB4B816A55F04000C0D2E /* test3.json in Resources */ = {isa = PBXBuildFile; fileRef = 3D4BB4B616A55F04000C0D2E /* test3.json */; };
+		3D4BB4BA16A55F4E000C0D2E /* test4.json in Resources */ = {isa = PBXBuildFile; fileRef = 3D4BB4B916A55F4E000C0D2E /* test4.json */; };
+		3D4BB4BB16A55F4E000C0D2E /* test4.json in Resources */ = {isa = PBXBuildFile; fileRef = 3D4BB4B916A55F4E000C0D2E /* test4.json */; };
+		3D4BB4BD16A55FA4000C0D2E /* test5.json in Resources */ = {isa = PBXBuildFile; fileRef = 3D4BB4BC16A55FA4000C0D2E /* test5.json */; };
+		3D4BB4BE16A55FA4000C0D2E /* test5.json in Resources */ = {isa = PBXBuildFile; fileRef = 3D4BB4BC16A55FA4000C0D2E /* test5.json */; };
+		3D4BB4C016A55FD9000C0D2E /* test6.json in Resources */ = {isa = PBXBuildFile; fileRef = 3D4BB4BF16A55FD9000C0D2E /* test6.json */; };
+		3D4BB4C116A55FD9000C0D2E /* test6.json in Resources */ = {isa = PBXBuildFile; fileRef = 3D4BB4BF16A55FD9000C0D2E /* test6.json */; };
+		3D4BB4C316A56058000C0D2E /* test7.json in Resources */ = {isa = PBXBuildFile; fileRef = 3D4BB4C216A56058000C0D2E /* test7.json */; };
+		3D4BB4C416A56058000C0D2E /* test7.json in Resources */ = {isa = PBXBuildFile; fileRef = 3D4BB4C216A56058000C0D2E /* test7.json */; };
+		3D4BB4C716A5610A000C0D2E /* test8.json in Resources */ = {isa = PBXBuildFile; fileRef = 3D4BB4C516A5610A000C0D2E /* test8.json */; };
+		3D4BB4C816A5610A000C0D2E /* test8.json in Resources */ = {isa = PBXBuildFile; fileRef = 3D4BB4C516A5610A000C0D2E /* test8.json */; };
+		3D4BB4C916A5610A000C0D2E /* test9.json in Resources */ = {isa = PBXBuildFile; fileRef = 3D4BB4C616A5610A000C0D2E /* test9.json */; };
+		3D4BB4CA16A5610A000C0D2E /* test9.json in Resources */ = {isa = PBXBuildFile; fileRef = 3D4BB4C616A5610A000C0D2E /* test9.json */; };
+		3D4BB4CC16A56206000C0D2E /* test10.json in Resources */ = {isa = PBXBuildFile; fileRef = 3D4BB4CB16A56206000C0D2E /* test10.json */; };
+		3D4BB4CD16A56206000C0D2E /* test10.json in Resources */ = {isa = PBXBuildFile; fileRef = 3D4BB4CB16A56206000C0D2E /* test10.json */; };
+		3D4BB4CF16A56243000C0D2E /* test11.json in Resources */ = {isa = PBXBuildFile; fileRef = 3D4BB4CE16A56243000C0D2E /* test11.json */; };
+		3D4BB4D016A56243000C0D2E /* test11.json in Resources */ = {isa = PBXBuildFile; fileRef = 3D4BB4CE16A56243000C0D2E /* test11.json */; };
 		3D7DA2C5169D7D0800801962 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D7DA2C4169D7D0800801962 /* UIKit.framework */; };
 		3D7DA2C7169D7D0800801962 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D7DA2C6169D7D0800801962 /* Foundation.framework */; };
 		3D7DA2C9169D7D0800801962 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D7DA2C8169D7D0800801962 /* CoreGraphics.framework */; };
@@ -31,8 +51,6 @@
 		3D7DA30E169D7D2800801962 /* OKJSONParser.c in Sources */ = {isa = PBXBuildFile; fileRef = 3D7DA305169D7D2800801962 /* OKJSONParser.c */; };
 		3D7DA311169D7D8E00801962 /* MachTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D7DA310169D7D8E00801962 /* MachTime.m */; };
 		3D7DA312169D7D8E00801962 /* MachTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D7DA310169D7D8E00801962 /* MachTime.m */; };
-		3D7DA316169D7E4B00801962 /* test1.json in Resources */ = {isa = PBXBuildFile; fileRef = 3D7DA315169D7E4B00801962 /* test1.json */; };
-		3D7DA317169D7E4B00801962 /* test1.json in Resources */ = {isa = PBXBuildFile; fileRef = 3D7DA315169D7E4B00801962 /* test1.json */; };
 		3DB5917F169D99A8004A8AF0 /* OKJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DB5917E169D99A8004A8AF0 /* OKJSON.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		3DB59180169D99A8004A8AF0 /* OKJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DB5917E169D99A8004A8AF0 /* OKJSON.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 /* End PBXBuildFile section */
@@ -48,7 +66,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3D696CA716A45FD10052ED57 /* test2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = test2.json; sourceTree = SOURCE_ROOT; };
+		3D4BB4B016A55EBF000C0D2E /* test1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = test1.json; path = TestJSONFiles/test1.json; sourceTree = SOURCE_ROOT; };
+		3D4BB4B116A55EBF000C0D2E /* test2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = test2.json; path = TestJSONFiles/test2.json; sourceTree = SOURCE_ROOT; };
+		3D4BB4B616A55F04000C0D2E /* test3.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = test3.json; path = TestJSONFiles/test3.json; sourceTree = SOURCE_ROOT; };
+		3D4BB4B916A55F4E000C0D2E /* test4.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = test4.json; path = TestJSONFiles/test4.json; sourceTree = SOURCE_ROOT; };
+		3D4BB4BC16A55FA4000C0D2E /* test5.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = test5.json; path = TestJSONFiles/test5.json; sourceTree = SOURCE_ROOT; };
+		3D4BB4BF16A55FD9000C0D2E /* test6.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = test6.json; path = TestJSONFiles/test6.json; sourceTree = SOURCE_ROOT; };
+		3D4BB4C216A56058000C0D2E /* test7.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = test7.json; path = TestJSONFiles/test7.json; sourceTree = SOURCE_ROOT; };
+		3D4BB4C516A5610A000C0D2E /* test8.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = test8.json; path = TestJSONFiles/test8.json; sourceTree = SOURCE_ROOT; };
+		3D4BB4C616A5610A000C0D2E /* test9.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = test9.json; path = TestJSONFiles/test9.json; sourceTree = SOURCE_ROOT; };
+		3D4BB4CB16A56206000C0D2E /* test10.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = test10.json; path = TestJSONFiles/test10.json; sourceTree = SOURCE_ROOT; };
+		3D4BB4CE16A56243000C0D2E /* test11.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = test11.json; path = TestJSONFiles/test11.json; sourceTree = SOURCE_ROOT; };
 		3D7DA2C0169D7D0800801962 /* OKJSONParserApplication.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OKJSONParserApplication.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D7DA2C4169D7D0800801962 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		3D7DA2C6169D7D0800801962 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -77,7 +105,6 @@
 		3D7DA306169D7D2800801962 /* OKJSONParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OKJSONParser.h; sourceTree = "<group>"; };
 		3D7DA30F169D7D8E00801962 /* MachTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MachTime.h; path = OKJSONParserApplication/MachTime.h; sourceTree = "<group>"; };
 		3D7DA310169D7D8E00801962 /* MachTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MachTime.m; path = OKJSONParserApplication/MachTime.m; sourceTree = "<group>"; };
-		3D7DA315169D7E4B00801962 /* test1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = test1.json; sourceTree = SOURCE_ROOT; };
 		3DB5917D169D99A8004A8AF0 /* OKJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OKJSON.h; sourceTree = "<group>"; };
 		3DB5917E169D99A8004A8AF0 /* OKJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OKJSON.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -155,7 +182,7 @@
 		3D7DA2CB169D7D0800801962 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				3D7DA314169D7E4000801962 /* Test JSON file */,
+				3D7DA314169D7E4000801962 /* Test JSON files */,
 				3D7DA2CC169D7D0800801962 /* OKJSONParserApplication-Info.plist */,
 				3D7DA2CD169D7D0800801962 /* InfoPlist.strings */,
 				3D7DA2D0169D7D0800801962 /* main.m */,
@@ -215,13 +242,22 @@
 			name = MachTime;
 			sourceTree = "<group>";
 		};
-		3D7DA314169D7E4000801962 /* Test JSON file */ = {
+		3D7DA314169D7E4000801962 /* Test JSON files */ = {
 			isa = PBXGroup;
 			children = (
-				3D696CA716A45FD10052ED57 /* test2.json */,
-				3D7DA315169D7E4B00801962 /* test1.json */,
+				3D4BB4B016A55EBF000C0D2E /* test1.json */,
+				3D4BB4B116A55EBF000C0D2E /* test2.json */,
+				3D4BB4B616A55F04000C0D2E /* test3.json */,
+				3D4BB4B916A55F4E000C0D2E /* test4.json */,
+				3D4BB4BC16A55FA4000C0D2E /* test5.json */,
+				3D4BB4BF16A55FD9000C0D2E /* test6.json */,
+				3D4BB4C216A56058000C0D2E /* test7.json */,
+				3D4BB4C516A5610A000C0D2E /* test8.json */,
+				3D4BB4C616A5610A000C0D2E /* test9.json */,
+				3D4BB4CB16A56206000C0D2E /* test10.json */,
+				3D4BB4CE16A56243000C0D2E /* test11.json */,
 			);
-			name = "Test JSON file";
+			name = "Test JSON files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -300,8 +336,17 @@
 				3D7DA2D9169D7D0800801962 /* Default@2x.png in Resources */,
 				3D7DA2DB169D7D0800801962 /* Default-568h@2x.png in Resources */,
 				3D7DA2E1169D7D0800801962 /* ViewController.xib in Resources */,
-				3D7DA316169D7E4B00801962 /* test1.json in Resources */,
-				3D696CA816A45FD10052ED57 /* test2.json in Resources */,
+				3D4BB4B216A55EBF000C0D2E /* test1.json in Resources */,
+				3D4BB4B416A55EBF000C0D2E /* test2.json in Resources */,
+				3D4BB4B716A55F04000C0D2E /* test3.json in Resources */,
+				3D4BB4BA16A55F4E000C0D2E /* test4.json in Resources */,
+				3D4BB4BD16A55FA4000C0D2E /* test5.json in Resources */,
+				3D4BB4C016A55FD9000C0D2E /* test6.json in Resources */,
+				3D4BB4C316A56058000C0D2E /* test7.json in Resources */,
+				3D4BB4C716A5610A000C0D2E /* test8.json in Resources */,
+				3D4BB4C916A5610A000C0D2E /* test9.json in Resources */,
+				3D4BB4CC16A56206000C0D2E /* test10.json in Resources */,
+				3D4BB4CF16A56243000C0D2E /* test11.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -310,8 +355,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D7DA2F3169D7D0800801962 /* InfoPlist.strings in Resources */,
-				3D7DA317169D7E4B00801962 /* test1.json in Resources */,
-				3D696CA916A45FD10052ED57 /* test2.json in Resources */,
+				3D4BB4B316A55EBF000C0D2E /* test1.json in Resources */,
+				3D4BB4B516A55EBF000C0D2E /* test2.json in Resources */,
+				3D4BB4B816A55F04000C0D2E /* test3.json in Resources */,
+				3D4BB4BB16A55F4E000C0D2E /* test4.json in Resources */,
+				3D4BB4BE16A55FA4000C0D2E /* test5.json in Resources */,
+				3D4BB4C116A55FD9000C0D2E /* test6.json in Resources */,
+				3D4BB4C416A56058000C0D2E /* test7.json in Resources */,
+				3D4BB4C816A5610A000C0D2E /* test8.json in Resources */,
+				3D4BB4CA16A5610A000C0D2E /* test9.json in Resources */,
+				3D4BB4CD16A56206000C0D2E /* test10.json in Resources */,
+				3D4BB4D016A56243000C0D2E /* test11.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

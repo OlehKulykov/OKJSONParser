@@ -29,7 +29,7 @@
 	NSDictionary * d2 = nil;
 	NSMutableDictionary * testDict = nil;
 	
-	NSString * path = [[NSBundle bundleForClass:[self class]] pathForResource:@"test2" ofType:@"json"];
+	NSString * path = [[NSBundle bundleForClass:[self class]] pathForResource:@"test1" ofType:@"json"];
 	NSData * data = [NSData dataWithContentsOfFile:path];
 	
 	d1 = [[JSONDecoder decoder] parseJSONData:data];

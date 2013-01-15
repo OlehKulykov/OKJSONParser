@@ -25,100 +25,44 @@
 
 - (void) testFile:(NSString *)filePath
 {
+	NSLog(@"\n\ntestFile: %@ \n\n", [filePath lastPathComponent]);
 	NSData * data = [NSData dataWithContentsOfFile:filePath];
 	
-	NSDictionary * testDict = [NSJSONSerialization JSONObjectWithData:data 
+	NSDictionary * NSDict = [NSJSONSerialization JSONObjectWithData:data 
 															  options:0
 																error:nil];
-	NSDictionary * d1 = [[JSONDecoder decoder] parseJSONData:data];
-	NSDictionary * d2 = [OKJSON parse:data withError:nil];
+	NSDictionary * JSONKitDict = [[JSONDecoder decoder] parseJSONData:data];
+	NSDictionary * OKDict = [OKJSON parse:data withError:nil];
 	
-	if ( ![testDict isEqualToDictionary:d1] )
+	if ( ![NSDict isEqualToDictionary:JSONKitDict] )
 	{
 		STFail(@"JSONDecoder incorrect parse result");
 	}
 	
-	if ( ![testDict isEqualToDictionary:d2] )
+	if ( ![NSDict isEqualToDictionary:OKDict] )
 	{
 		STFail(@"OKJSONParser incorrect parse result");
 	}
 	
-	if ( ![d1 isEqualToDictionary:d2] )
+	if ( ![JSONKitDict isEqualToDictionary:OKDict] )
 	{
 		STFail(@"Both results not equal");
 	}
-}
-
-- (void) testTime
-{
-	NSString * path = [[NSBundle bundleForClass:[self class]] pathForResource:@"test2" ofType:@"json"];
-	NSData * data = [NSData dataWithContentsOfFile:path];
-	
-	NSDictionary * d1 = [[JSONDecoder decoder] parseJSONData:data];
-	NSDictionary *d2 = [OKJSON parse:data withError:nil];
-	NSDictionary *	testDict = [NSJSONSerialization JSONObjectWithData:data 
-											   options:0
-												 error:nil];
-	if ( ![testDict isEqualToDictionary:d1] )
-	{
-		STFail(@"JSONDecoder incorrect parse result");
-	}
-	
-	if ( ![testDict isEqualToDictionary:d2] )
-	{
-		STFail(@"OKJSONParser incorrect parse result");
-	}
-	
-	if ( ![d1 isEqualToDictionary:d2] )
-	{
-		STFail(@"Both results not equal");
-	}
-	
-	
-	const int times = 5000;
-	
-	NSTimeInterval time1 = GetMachTime();
-	for (int i = 0; i < times; i++) 
-	{
-		NSDictionary * dict = [[JSONDecoder decoder] parseJSONData:data];
-		dict = nil;
-	}
-	time1 = GetMachTime() - time1;
-	
-	
-	NSTimeInterval time2 = GetMachTime();
-	for (int i = 0; i < times; i++) 
-	{
-		NSDictionary * dict = [OKJSON parse:data withError:nil];
-		dict = nil;
-	}
-	time2 = GetMachTime() - time2;
-	
-	NSTimeInterval time0 = GetMachTime();
-	for (int i = 0; i < times; i++) 
-	{
-		NSDictionary * dict = [NSJSONSerialization JSONObjectWithData:data 
-															  options:0
-																error:nil];
-		dict = nil;
-	}
-	time0 = GetMachTime() - time0;
-	
-	
-	const double fasterRate1 = time1 / time2;
-	const double fasterRate2 = time0 / time2;
-	
-	if (time1 < time2) 
-	{
-		STFail(@"OKJSONParser is slower ");
-	}
-	NSLog(@"\n\n\n\nTEST_APP\nJSONDec:%f  \nOKJSONP:%f   \nNSJSONS:%f  \nFasterRate1:%f  \nFasterRate2:%f \n\n\n", time1, time2, time0, fasterRate1, fasterRate2);
 }
 
 - (void) testParse
 {
 	[self testFile:[[NSBundle bundleForClass:[self class]] pathForResource:@"test2" ofType:@"json"]];
 	[self testFile:[[NSBundle bundleForClass:[self class]] pathForResource:@"test1" ofType:@"json"]];
+	[self testFile:[[NSBundle bundleForClass:[self class]] pathForResource:@"test3" ofType:@"json"]];
+	[self testFile:[[NSBundle bundleForClass:[self class]] pathForResource:@"test4" ofType:@"json"]];
+	[self testFile:[[NSBundle bundleForClass:[self class]] pathForResource:@"test5" ofType:@"json"]];
+	[self testFile:[[NSBundle bundleForClass:[self class]] pathForResource:@"test6" ofType:@"json"]];
+	[self testFile:[[NSBundle bundleForClass:[self class]] pathForResource:@"test7" ofType:@"json"]];
+	[self testFile:[[NSBundle bundleForClass:[self class]] pathForResource:@"test8" ofType:@"json"]];
+	[self testFile:[[NSBundle bundleForClass:[self class]] pathForResource:@"test9" ofType:@"json"]];
+	[self testFile:[[NSBundle bundleForClass:[self class]] pathForResource:@"test10" ofType:@"json"]];
+	[self testFile:[[NSBundle bundleForClass:[self class]] pathForResource:@"test11" ofType:@"json"]];
 }
 
 @end
