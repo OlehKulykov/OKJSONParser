@@ -63,7 +63,11 @@
 
 struct _OKJSONParserStruct
 {
-	uint8_t * data;
+//	union
+//	{
+		uint8_t * data;
+//		const char * string;
+//	};
 	uint8_t * end;
 	id * objects;
 	OBJ_TYPE_TYPE * types;
@@ -202,21 +206,21 @@ id OKJSONParserTryNumber(OKJSONParserStruct * p)
 		case CH('t'): /// true
 			if (strncmp((const char *)p->data, "true", 4) == 0)
 			{
-				p->data += 4;
+				p->data += 3; /// don't set currect offset to last char
 				const char v = 1; // BOOL <- is char type on non ARC mode
 				return (id)CFNumberCreate(kCFAllocatorMalloc, kCFNumberCharType, &v);
 			} break;
 		case CH('f'): /// false
 			if (strncmp((const char *)p->data, "false", 5) == 0)
 			{
-				p->data += 5;
+				p->data += 4; /// don't set currect offset to last char
 				const char v = 0; // BOOL <- is char type on non ARC mode
 				return (id)CFNumberCreate(kCFAllocatorMalloc, kCFNumberCharType, &v);
 			} break;
 		case CH('n'): /// null
 			if (strncmp((const char *)p->data, "null", 4) == 0)
 			{
-				p->data += 4;
+				p->data += 3; /// don't set currect offset to last char
 				return (id)kCFNull;
 			} break;
 		default: break; 
@@ -278,10 +282,10 @@ uint32_t OKJSONParserUniCharToUTF8(const uint32_t uniChar, uint8_t * cursor)
 		{
 			if (u > 0xffff) 
 			{
-				// if people are working in utf8, but strings are encoded in eg. latin1, the resulting
-				// name might be invalid utf8. This and the corresponding code in fromUtf8 takes care
-				// we can handle this without loosing information. This can happen with latin filenames
-				// and a utf8 locale under Unix.
+				/// if people are working in utf8, but strings are encoded in eg. latin1, the resulting
+				/// name might be invalid utf8. This and the corresponding code in fromUtf8 takes care
+				/// we can handle this without loosing information. This can happen with latin filenames
+				/// and a utf8 locale under Unix.
 				if ( (u > 0x10fe00) && (u < 0x10ff00) )
 				{
 					*cursor++ = (u - 0x10fe00);
@@ -320,7 +324,7 @@ void OKJSONParserParseReplacementString(const uint8_t * data, uint32_t len, id *
 		{
 			switch (curr) 
 			{
-				//TODO: remove ugly code ...
+				//TODO: ugly code bellow ...
 				case CH('\"'): if (prev == CH('\\')) { *--newBuffer = '\"'; newBuffer++; } else *newBuffer++ = *data; break;
 				case CH('\\'): if (prev == CH('\\')) { *--newBuffer = '\\'; newBuffer++; } else *newBuffer++ = *data; break;
 				case CH('/'): if (prev == CH('\\')) { *--newBuffer = '/'; newBuffer++; } else *newBuffer++ = *data; break;
@@ -502,9 +506,9 @@ id OKJSONParserParse(const uint8_t * inData, const uint32_t inDataLength, void *
 				}
 			} break;
 				
-			case CH('}'):
+			case CH('}'): OKJSONParserEndContainer(&p); break;
 			case CH(']'): OKJSONParserEndContainer(&p); break;
-				
+			
 			case CH('['):
 			{
 				id newArray = (id)CFArrayCreateMutable(kCFAllocatorMalloc, 2, &kCFTypeArrayCallBacks);
