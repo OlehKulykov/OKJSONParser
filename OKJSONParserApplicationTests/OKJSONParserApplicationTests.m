@@ -27,6 +27,10 @@
 {
 	NSLog(@"\n\ntestFile: %@ \n\n", [filePath lastPathComponent]);
 	NSData * data = [NSData dataWithContentsOfFile:filePath];
+	if (data == nil)
+	{
+		STFail(@"Testing JSON file: data is empty");
+	}
 	
 	NSDictionary * NSDict = [NSJSONSerialization JSONObjectWithData:data 
 															  options:0
@@ -63,6 +67,13 @@
 	[self testFile:[[NSBundle bundleForClass:[self class]] pathForResource:@"test9" ofType:@"json"]];
 	[self testFile:[[NSBundle bundleForClass:[self class]] pathForResource:@"test10" ofType:@"json"]];
 	[self testFile:[[NSBundle bundleForClass:[self class]] pathForResource:@"test11" ofType:@"json"]];
+	[self testFile:[[NSBundle bundleForClass:[self class]] pathForResource:@"test12" ofType:@"json"]];
+	[self testFile:[[NSBundle bundleForClass:[self class]] pathForResource:@"test13" ofType:@"json"]];
+	[self testFile:[[NSBundle bundleForClass:[self class]] pathForResource:@"test14" ofType:@"json"]];
+	[self testFile:[[NSBundle bundleForClass:[self class]] pathForResource:@"test15" ofType:@"json"]];
+	[self testFile:[[NSBundle bundleForClass:[self class]] pathForResource:@"test16" ofType:@"json"]];
+	[self testFile:[[NSBundle bundleForClass:[self class]] pathForResource:@"test17" ofType:@"json"]];
+	[self testFile:[[NSBundle bundleForClass:[self class]] pathForResource:@"test18" ofType:@"json"]];
 }
 
 @end

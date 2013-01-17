@@ -53,6 +53,20 @@
 		3D7DA312169D7D8E00801962 /* MachTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D7DA310169D7D8E00801962 /* MachTime.m */; };
 		3DB5917F169D99A8004A8AF0 /* OKJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DB5917E169D99A8004A8AF0 /* OKJSON.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		3DB59180169D99A8004A8AF0 /* OKJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DB5917E169D99A8004A8AF0 /* OKJSON.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		3DBEB0F416A8577C002CF598 /* test12.json in Resources */ = {isa = PBXBuildFile; fileRef = 3DBEB0F316A8577C002CF598 /* test12.json */; };
+		3DBEB0F516A8577C002CF598 /* test12.json in Resources */ = {isa = PBXBuildFile; fileRef = 3DBEB0F316A8577C002CF598 /* test12.json */; };
+		3DBEB0F816A857EB002CF598 /* test13.json in Resources */ = {isa = PBXBuildFile; fileRef = 3DBEB0F716A857EB002CF598 /* test13.json */; };
+		3DBEB0F916A857EB002CF598 /* test13.json in Resources */ = {isa = PBXBuildFile; fileRef = 3DBEB0F716A857EB002CF598 /* test13.json */; };
+		3DBEB0FB16A85800002CF598 /* test14.json in Resources */ = {isa = PBXBuildFile; fileRef = 3DBEB0FA16A85800002CF598 /* test14.json */; };
+		3DBEB0FC16A85800002CF598 /* test14.json in Resources */ = {isa = PBXBuildFile; fileRef = 3DBEB0FA16A85800002CF598 /* test14.json */; };
+		3DBEB0FE16A85828002CF598 /* test15.json in Resources */ = {isa = PBXBuildFile; fileRef = 3DBEB0FD16A85828002CF598 /* test15.json */; };
+		3DBEB0FF16A85828002CF598 /* test15.json in Resources */ = {isa = PBXBuildFile; fileRef = 3DBEB0FD16A85828002CF598 /* test15.json */; };
+		3DBEB10116A85839002CF598 /* test16.json in Resources */ = {isa = PBXBuildFile; fileRef = 3DBEB10016A85839002CF598 /* test16.json */; };
+		3DBEB10216A85839002CF598 /* test16.json in Resources */ = {isa = PBXBuildFile; fileRef = 3DBEB10016A85839002CF598 /* test16.json */; };
+		3DBEB10416A8584C002CF598 /* test17.json in Resources */ = {isa = PBXBuildFile; fileRef = 3DBEB10316A8584C002CF598 /* test17.json */; };
+		3DBEB10516A8584C002CF598 /* test17.json in Resources */ = {isa = PBXBuildFile; fileRef = 3DBEB10316A8584C002CF598 /* test17.json */; };
+		3DBEB10716A8585C002CF598 /* test18.json in Resources */ = {isa = PBXBuildFile; fileRef = 3DBEB10616A8585C002CF598 /* test18.json */; };
+		3DBEB10816A8585C002CF598 /* test18.json in Resources */ = {isa = PBXBuildFile; fileRef = 3DBEB10616A8585C002CF598 /* test18.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,6 +121,13 @@
 		3D7DA310169D7D8E00801962 /* MachTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MachTime.m; path = OKJSONParserApplication/MachTime.m; sourceTree = "<group>"; };
 		3DB5917D169D99A8004A8AF0 /* OKJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OKJSON.h; sourceTree = "<group>"; };
 		3DB5917E169D99A8004A8AF0 /* OKJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OKJSON.m; sourceTree = "<group>"; };
+		3DBEB0F316A8577C002CF598 /* test12.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = test12.json; path = TestJSONFiles/test12.json; sourceTree = SOURCE_ROOT; };
+		3DBEB0F716A857EB002CF598 /* test13.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = test13.json; path = TestJSONFiles/test13.json; sourceTree = SOURCE_ROOT; };
+		3DBEB0FA16A85800002CF598 /* test14.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = test14.json; path = TestJSONFiles/test14.json; sourceTree = SOURCE_ROOT; };
+		3DBEB0FD16A85828002CF598 /* test15.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = test15.json; path = TestJSONFiles/test15.json; sourceTree = SOURCE_ROOT; };
+		3DBEB10016A85839002CF598 /* test16.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = test16.json; path = TestJSONFiles/test16.json; sourceTree = SOURCE_ROOT; };
+		3DBEB10316A8584C002CF598 /* test17.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = test17.json; path = TestJSONFiles/test17.json; sourceTree = SOURCE_ROOT; };
+		3DBEB10616A8585C002CF598 /* test18.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = test18.json; path = TestJSONFiles/test18.json; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -256,6 +277,13 @@
 				3D4BB4C616A5610A000C0D2E /* test9.json */,
 				3D4BB4CB16A56206000C0D2E /* test10.json */,
 				3D4BB4CE16A56243000C0D2E /* test11.json */,
+				3DBEB0F316A8577C002CF598 /* test12.json */,
+				3DBEB0F716A857EB002CF598 /* test13.json */,
+				3DBEB0FA16A85800002CF598 /* test14.json */,
+				3DBEB0FD16A85828002CF598 /* test15.json */,
+				3DBEB10016A85839002CF598 /* test16.json */,
+				3DBEB10316A8584C002CF598 /* test17.json */,
+				3DBEB10616A8585C002CF598 /* test18.json */,
 			);
 			name = "Test JSON files";
 			sourceTree = "<group>";
@@ -347,6 +375,13 @@
 				3D4BB4C916A5610A000C0D2E /* test9.json in Resources */,
 				3D4BB4CC16A56206000C0D2E /* test10.json in Resources */,
 				3D4BB4CF16A56243000C0D2E /* test11.json in Resources */,
+				3DBEB0F416A8577C002CF598 /* test12.json in Resources */,
+				3DBEB0F816A857EB002CF598 /* test13.json in Resources */,
+				3DBEB0FB16A85800002CF598 /* test14.json in Resources */,
+				3DBEB0FE16A85828002CF598 /* test15.json in Resources */,
+				3DBEB10116A85839002CF598 /* test16.json in Resources */,
+				3DBEB10416A8584C002CF598 /* test17.json in Resources */,
+				3DBEB10716A8585C002CF598 /* test18.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -366,6 +401,13 @@
 				3D4BB4CA16A5610A000C0D2E /* test9.json in Resources */,
 				3D4BB4CD16A56206000C0D2E /* test10.json in Resources */,
 				3D4BB4D016A56243000C0D2E /* test11.json in Resources */,
+				3DBEB0F516A8577C002CF598 /* test12.json in Resources */,
+				3DBEB0F916A857EB002CF598 /* test13.json in Resources */,
+				3DBEB0FC16A85800002CF598 /* test14.json in Resources */,
+				3DBEB0FF16A85828002CF598 /* test15.json in Resources */,
+				3DBEB10216A85839002CF598 /* test16.json in Resources */,
+				3DBEB10516A8584C002CF598 /* test17.json in Resources */,
+				3DBEB10816A8585C002CF598 /* test18.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
