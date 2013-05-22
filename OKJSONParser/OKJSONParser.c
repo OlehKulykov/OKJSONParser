@@ -63,11 +63,7 @@
 
 struct _OKJSONParserStruct
 {
-//	union
-//	{
-		uint8_t * data;
-//		const char * string;
-//	};
+	uint8_t * data;
 	uint8_t * end;
 	id * objects;
 	OBJ_TYPE_TYPE * types;
@@ -324,7 +320,7 @@ void OKJSONParserParseReplacementString(const uint8_t * data, uint32_t len, id *
 		{
 			switch (curr) 
 			{
-				//TODO: ugly code bellow ...
+					//TODO: ugly code bellow ...
 				case CH('\"'): if (prev == CH('\\')) { *--newBuffer = '\"'; newBuffer++; } else *newBuffer++ = *data; break;
 				case CH('\\'): if (prev == CH('\\')) { *--newBuffer = '\\'; newBuffer++; } else *newBuffer++ = *data; break;
 				case CH('/'): if (prev == CH('\\')) { *--newBuffer = '/'; newBuffer++; } else *newBuffer++ = *data; break;
@@ -508,7 +504,7 @@ id OKJSONParserParse(const uint8_t * inData, const uint32_t inDataLength, void *
 				
 			case CH('}'): OKJSONParserEndContainer(&p); break;
 			case CH(']'): OKJSONParserEndContainer(&p); break;
-			
+				
 			case CH('['):
 			{
 				id newArray = (id)CFArrayCreateMutable(kCFAllocatorMalloc, 2, &kCFTypeArrayCallBacks);
